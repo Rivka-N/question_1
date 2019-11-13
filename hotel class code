@@ -1,0 +1,61 @@
+//hotel class
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace part2
+{
+    class HostingUnit
+    {
+        public bool[,] diary;//state of hosting unit occupancy
+
+        public HostingUnit()//c-tor
+        {
+           diary = new bool[12, 31];//creates array
+           for (int i = 0; i < 12; i++)
+            {
+               for (int j = 0; j < 31; j++)
+                {
+                    diary[i, j] = false;//initializes all the array to be false
+                }
+            }
+        }
+        public bool OrderStay()//orders a place in the hotel. if succeeded returns true. false otherwise
+        {
+            Console.WriteLine("enter day and month of stay");
+            int day = Convert.ToInt32(Console.ReadLine());
+            int month = Convert.ToInt32(Console.ReadLine());
+            DateTime date = new DateTime(2020, month, day);
+            Console.WriteLine("how many days is your stay?");
+            int stay = Convert.ToInt32(Console.ReadLine());
+            return checkDates(date, stay);
+        }
+
+        public bool checkDates (DateTime date, int stayLen)
+        {
+            for (int i = 1, d = date.Day, m = date.Month; i < stayLen - 1; i++, d++)//checks all but the last day
+            {
+                if (d > 31)//goes to next month
+                {
+                    d = 1;
+                    m = m + 1;//goes to next month
+                }
+                if (diary[m, d] == true)//if it's booked
+                  return false;//not available
+            }
+            for (int i = 0, d = date.Month, m = date.Month; i < stayLen - 1; i++, d++)
+            {
+                //the last day's night isn't booked because he leaves in the morning
+                if (d > 31)//goes to next month
+                {
+                    d = 1;
+                    m = m + 1;//goes to next month
+                }
+                diary[date.Month, date.Day + i] = true;//updates to true
+            }
+            return true;
+        }
+    }
+}
