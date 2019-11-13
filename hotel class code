@@ -53,7 +53,7 @@ namespace part2
                     d = 1;
                     m = m + 1;//goes to next month
                 }
-                diary[date.Month, date.Day + i] = true;//updates to true
+                diary[m, d] = true;//updates to true
             }
             return true;
         }
