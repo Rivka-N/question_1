@@ -6,46 +6,69 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace part2
+namespace dotNet5780_01_6848_5948
 {
     class Program
     {
         static void Main(string[] args)
         {
-            HostingUnit hotel1= new HostingUnit();
-            string message = "please enter your choice: \na to book your stay, b to, c to , d to exit\n";
-            Console.Write(message);
-            char choice = Console.ReadKey().KeyChar;
-            while (choice != 'd')//while the choice isn't exit
+            Random r = new Random();
+            const int SIZE = 20;
+            int[] A = new int[SIZE], B = new int[SIZE], C = new int[SIZE];
+            for (int i = 0; i < SIZE; i++)
             {
-                try
-                {
-                    switch (choice)
-                    {
-                        case 'a':
-                            Console.WriteLine("\nenter day and month of stay");
-                            int day = Convert.ToInt32(Console.ReadLine());
-                            int month = Convert.ToInt32(Console.ReadLine());
-                            DateTime date = new DateTime(2020, month, day);
-                            Console.WriteLine("how many days is your stay?");
-                            int stayLen = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine(hotel1.checkDates(date, stayLen) == true ? "Your stay was booked" : "Unnable to book your stay");
-                            break;
-                        case 'b':
-                            break;
-                        case 'c':
-                            break;
-                        case 'd': //exits
-                            break;
-                        default:
-                            Console.WriteLine("invalid choice. Try again\n");
-                            break;
-                    }
-                }
-                catch { Console.WriteLine("\nUnexpected error. Try again."); }
-                Console.WriteLine(message);
-                choice = Console.ReadKey().KeyChar;//recieves a new choice
+                A[i] = r.Next(18, 123);//puts in the numbers
+                B[i] = r.Next(18, 123);//puts in the numbers
             }
+            for (int i = 0; i < SIZE; i++)
+            {
+                C[i] = Math.Abs(A[i] - B[i]);
+            }
+            for (int i = 0; i < SIZE; i++)
+            {
+                if (A[i] / 10 == 0)
+                    Console.Write(" " + A[i] + "  ");
+                else
+                {
+                    if (A[i] / 100 == 0)
+                        Console.Write(A[i] + "  ");
+                    else
+                        Console.Write(A[i] + " ");
+                }
+
+            }
+            Console.WriteLine();
+
+            for (int i = 0; i < SIZE; i++)
+            {
+                if (B[i] / 10 == 0)
+                    Console.Write(" " + B[i] + "  ");
+                else
+                {
+                    if (B[i] / 100 == 0)
+                        Console.Write(B[i] + "  ");
+                    else
+                        Console.Write(B[i] + " ");
+                }
+
+            }
+            Console.WriteLine();
+
+            for (int i = 0; i < SIZE; i++)
+            {
+                if (C[i] / 10 == 0)
+                    Console.Write(" " + C[i] + "  ");
+                else
+                {
+                    if (C[i] / 100 == 0)
+                        Console.Write(C[i] + "  ");
+                    else
+                        Console.Write(C[i] + " ");
+                }
+
+            }
+            Console.WriteLine();
+
         }
     }
 }
