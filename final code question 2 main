@@ -1,0 +1,68 @@
+//Rivka Nadell 6848
+//Rina Greenboim 5948
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace part2
+
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            HostingUnit hotel1 = new HostingUnit();
+            string message = ("Choose one of the following:\n" 
+                + "1: If you want to book a vacation\n" 
+                + "2: To view all orders for the current year\n" 
+                + "3: Total number of days occupied\n" 
+                + "4: Exit");
+            //Console.WriteLine(message);
+            int choice;
+            // char choice = Console.ReadKey().KeyChar;
+            do
+            {
+                Console.WriteLine(message);
+                choice = Convert.ToInt32(Console.ReadLine());
+                try
+                {
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine("enter day in month of stay");
+                            int day = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("enter month of stay");
+                            int month = Convert.ToInt32(Console.ReadLine());
+                            DateTime date = new DateTime(2020, month, day);
+                            Console.WriteLine("how many days is your stay?");
+                            int stayLen = Convert.ToInt32(Console.ReadLine());
+                            if (stayLen < 2 || stayLen>372)
+                            {
+                                Console.WriteLine("Invalid number of days");
+                                break;
+                            }
+                            Console.WriteLine(hotel1.checkDates(date, stayLen) == true ? "Your stay was booked" : "Unnable to book your stay");
+                            break;
+                        case 2:
+                            hotel1.FullDays();
+                            break;
+                        case 3:
+                            hotel1.TotalDays();
+                            break;
+                        case 4: //exits
+                            break;
+                        default:
+                            Console.WriteLine("invalid choice. Try again\n");
+                            break;
+                    }
+                }
+                catch (Exception except)
+                {
+                    Console.WriteLine(except.Message + "Try again");
+                }
+            } while (choice != 4);
+        }
+    }
+}
